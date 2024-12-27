@@ -578,8 +578,8 @@ void cancelReservation() {
 
    char line[256];
    while (fgets(line, sizeof(line), file) != NULL) {
-      int currentID;
-      sscanf(line, "%d", &currentID);
+      int currentID = 0;
+      sscanf(line, "%1d", &currentID);
 
       if (currentID != choice) {
          fputs(line, temp);
@@ -588,13 +588,16 @@ void cancelReservation() {
       }
    }
 
+   fclose(temp);
+   fclose(file);
+
    if (found) {
       remove(reserveFile);
       rename("temp.txt", reserveFile);
-      printf("\nReservation with identifier %s successfully removed\n", choice);
+      printf("\nReservation with identifier %d successfully removed\n", choice);
    } else {
       remove("temp.txt");
-      printf("\nReservation with identifier %s not found\n", choice);
+      printf("\nReservation with identifier %d not found\n", choice);
    }
 }
 
@@ -641,8 +644,8 @@ void updateReservation() {
 
    char line[512];
    while (fgets(line, sizeof(line), file) != NULL) {
-      int currentID;
-      sscanf(line, "%d", &currentID);
+      int currentID = 0;
+      sscanf(line, "%1d", &currentID);
 
       if (currentID == choice) {
          found = 1;
@@ -655,8 +658,10 @@ void updateReservation() {
             ;
          fgets(newReservation.name, sizeof(newReservation.name), stdin);
          removeNewLine(newReservation.name);
+
          printf("Enter new seat class (First or Couch): ");
          scanf("%s", newReservation.seatClass);
+
          printf("Enter new number of seats: ");
          scanf("%d", &newReservation.seatNum);
 
@@ -674,12 +679,12 @@ void updateReservation() {
    fclose(file);
 
    if (found) {
-      remove(flightFile);
-      rename("temp.txt", flightFile);
-      printf("\nReservation with identifier %s successfully updated\n", choice);
+      remove(reserveFile);
+      rename("temp.txt", reserveFile);
+      printf("\nReservation with identifier %d successfully updated\n", choice);
    } else {
       remove("temp.txt");
-      printf("\nReservation with identifier %s not found\n", choice);
+      printf("\nReservation with identifier %d not found\n", choice);
    }
 }
 
@@ -710,27 +715,27 @@ void menu() {
       scanf("%d", &choice);
 
       if (choice == 1) {
-         viewFlight(flightFile);
+         viewFlight();
       } else if (choice == 2) {
-         addFlight(flightFile);
+         addFlight();
       } else if (choice == 3) {
-         deleteFlight(flightFile);
+         deleteFlight();
       } else if (choice == 4) {
-         updateFlight(flightFile);
+         updateFlight();
       } else if (choice == 5) {
-         viewReservation(reserveFile);
+         viewReservation();
       } else if (choice == 6) {
-         makeReservation(reserveFile);
+         makeReservation();
       } else if (choice == 7) {
-         cancelReservation(reserveFile);
+         cancelReservation();
       } else if (choice == 8) {
-         updateReservation(reserveFile);
+         updateReservation();
       } else if (choice == 9) {
          printf("Exiting. Goodbye\n");
          break;
       } else {
          printf("Please input number from range 1-9\n");
-         sleep(3);
+         sleep(1);
       }
    }
 }
