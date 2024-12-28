@@ -1,4 +1,4 @@
-#include "lib/flightlib.h"
+#include "../lib/flightlib.h"
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -55,7 +55,7 @@ void menu() {
    }
 }
 
-void initFile(const char *file) {
+void initFile(const char file[]) {
    // create the file
    FILE *dbFile = fopen(file, "w");
    if (dbFile == NULL) {
@@ -72,10 +72,8 @@ int main() {
    if (flight == NULL) {
       perror("\nError opening flight database");
 
-      // printf("\033[0;33m");
       printf("Creating database file\n");
       printf("Initalizing DB file\n");
-      // printf("\033[0m");
       initFile(flightFile);
    }
 

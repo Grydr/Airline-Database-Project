@@ -2,6 +2,11 @@
 #include <stdio.h>
 #include <string.h>
 
+const char header[256] = "Flight Database\n";
+const char reserveHeader[256] = "Reservation Database\n";
+const char reserveFile[256] = "data/reservationDB.txt";
+const char flightFile[256] = "data/airlineDB.txt";
+
 void removeNewLine(char *str) {
    int len = strlen(str);
    if (len > 0 && str[len - 1] == '\n') {

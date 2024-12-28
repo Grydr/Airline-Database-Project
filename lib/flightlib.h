@@ -24,10 +24,10 @@ typedef struct {
    int seatNum;
 } Reservation;
 
-const char *header = "Flight Database\n";
-const char *reserveHeader = "Reservation Database\n";
-const char *reserveFile = "../data/reservationDB.txt";
-const char *flightFile = "../data/airlineDB.txt";
+extern const char header[256];
+extern const char reserveHeader[256];
+extern const char reserveFile[256];
+extern const char flightFile[256];
 
 int isLeap(int yy);
 int validateDate(char *str);
