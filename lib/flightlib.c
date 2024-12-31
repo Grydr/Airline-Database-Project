@@ -83,8 +83,9 @@ int validateTime(char *str) {
    int hour, min;
    hour = min = 0;
 
-   char cutStr[10];
-   strncpy(cutStr, str + 11, 5);
+   char cutStr[256];
+   // strncpy(cutStr, str + 11, 5);
+   strcpy(cutStr, str + 11);
    sscanf(cutStr, "%2d:%2d", &hour, &min);
 
    // validate hour & min
